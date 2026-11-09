@@ -32,3 +32,19 @@ export function loadSupabase(): Promise<Client> {
 
 /** Client già caricato (dopo l'inizializzazione dell'auth), altrimenti null. */
 export const getSupabase = (): Client | null => client
+
+/**
+ * Provider di accesso attivi nel progetto (Authentication → Sign In / Providers), es. `{ email: true, google: false }`.
+ * Serve a non mostrare "Continua con Google" finché Google non è configurato.
+ */
+export async function authProviders(): Promise<Record<string, boolean>> {
+  if (!isSupabaseConfigured) return {}
+  try {
+    const res = await fetch(`${url}/auth/v1/settings`, { headers: { apikey: anonKey! } })
+    if (!res.ok) return {}
+    const body = (await res.json()) as { external?: Record<string, boolean> }
+    return body.external ?? {}
+  } catch {
+    return {}
+  }
+}

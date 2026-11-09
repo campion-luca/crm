@@ -32,20 +32,22 @@ Senza variabili d'ambiente l'app parte in **modalità locale**: niente login, i 
 
 ## Setup Supabase
 
-1. **Crea il progetto** su [supabase.com](https://supabase.com) e copia *Project URL* e *anon public key* (Project Settings → API).
+1. **Crea il progetto** su [supabase.com](https://supabase.com) e copia il *Project URL* (pulsante *Connect* in alto, oppure *Project Settings → Data API*) e la chiave **Publishable** (*Project Settings → API Keys*). La chiave *Secret* non serve e non va mai messa nel frontend.
 2. **Variabili d'ambiente**: copia `.env.example` in `.env` e compila:
    ```bash
    VITE_SUPABASE_URL=https://<ref>.supabase.co
-   VITE_SUPABASE_ANON_KEY=<anon key>
+   VITE_SUPABASE_PUBLISHABLE_KEY=sb_publishable_...
    ```
-3. **Migrazioni** (schema, indici, RLS, trigger `updated_at`, `completed_at`, anti-ciclo e controllo proprietà, Realtime, RPC `apply_changes`, Setup aziendale e bucket privato `brand` per i file):
-   ```bash
-   npx supabase login
-   npx supabase init            # solo la prima volta: crea supabase/config.toml, lascia stare le migrazioni
-   npx supabase link --project-ref <ref>
-   npx supabase db push
-   ```
-   In alternativa incolla i file di `supabase/migrations/` in ordine nel SQL Editor.
+   Funziona anche la vecchia chiave `anon` in `VITE_SUPABASE_ANON_KEY`, ma Supabase la ritira nel 2027.
+3. **Migrazioni** (schema, indici, RLS, trigger `updated_at`, `completed_at`, anti-ciclo e controllo proprietà, Realtime, RPC `apply_changes`, Setup aziendale e bucket privato `brand` per i file). Scegli **un solo** metodo e usa sempre quello, così Supabase tiene traccia di cosa è già applicato:
+   - **Integrazione GitHub** (consigliato): *Project Settings → Integrations → GitHub*, collega il repository con *Working directory* `.` e *Production branch* `main`, attiva **Deploy to production**. A ogni push su `main` Supabase applica le migrazioni nuove; l'esito compare come check sul commit in GitHub.
+   - **CLI**:
+     ```bash
+     npx supabase login
+     npx supabase link --project-ref <ref>
+     npx supabase db push
+     ```
+   Non incollare le migrazioni a mano nel SQL Editor se usi uno dei due metodi: al deploy successivo verrebbero rieseguite e fallirebbero.
 4. **Tipi TypeScript** dal database collegato (sovrascrive `src/lib/database.types.ts`, che oggi è scritto a mano nello stesso formato):
    ```bash
    npm run gen:types
@@ -62,7 +64,7 @@ Al primo accesso l'app crea `user_settings` e propone **Inizia da zero** oppure 
 ## Deploy su Vercel
 
 1. Importa il repository su Vercel: il framework Vite viene rilevato da solo, `vercel.json` aggiunge il rewrite SPA (tutte le route → `index.html`) e la cache immutabile degli asset.
-2. In *Settings → Environment Variables* aggiungi `VITE_SUPABASE_URL` e `VITE_SUPABASE_ANON_KEY` (Production e Preview).
+2. In *Settings → Environment Variables* aggiungi `VITE_SUPABASE_URL` e `VITE_SUPABASE_PUBLISHABLE_KEY` (Production e Preview).
 3. Aggiungi il dominio di produzione alle *Redirect URLs* di Supabase (punto 5 sopra).
 
 ## Script

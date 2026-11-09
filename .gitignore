@@ -6,3 +6,5 @@ playwright-report
 test-results
 .DS_Store
 *.tsbuildinfo
+supabase/.temp
+supabase/.branches

@@ -2,7 +2,9 @@ import type { SupabaseClient } from '@supabase/supabase-js'
 import type { Database } from './database.types'
 
 const url = import.meta.env.VITE_SUPABASE_URL as string | undefined
-const anonKey = import.meta.env.VITE_SUPABASE_ANON_KEY as string | undefined
+/** Chiave pubblica: la nuova "publishable" (sb_publishable_…) o la vecchia "anon" (eyJ…). */
+const anonKey = (import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY || import.meta.env.VITE_SUPABASE_ANON_KEY) as
+  string | undefined
 
 /** Senza variabili d'ambiente l'app parte in modalità locale (dati nel browser, nessun login). */
 export const isSupabaseConfigured = Boolean(url && anonKey && !url.includes('xxxxxxxx'))

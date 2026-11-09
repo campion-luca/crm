@@ -1,0 +1,4 @@
+# Supabase CLI e integrazione GitHub.
+# Con "Deploy to production" attivo (Project Settings → Integrations → GitHub),
+# ogni push su main applica al progetto le nuove migrazioni di supabase/migrations.
+project_id = "gestionale-lavoro"

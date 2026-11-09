@@ -22,7 +22,7 @@ Senza variabili d'ambiente l'app parte in **modalità locale**: niente login, i 
 | Routing | TanStack Router (route tipizzate, code-splitting, preload su hover/focus, search params tipizzati per i filtri) |
 | Dati server | TanStack Query v5: optimistic update, rollback, coda delle modifiche offline, cache persistita |
 | Stato UI | Zustand con `persist` (ultima vista, ambito, cartelle espanse, raggruppamento) |
-| Backend | Supabase: Postgres + Auth (magic link, Google) + RLS + Realtime |
+| Backend | Supabase: Postgres + Auth (email e password, link via email, Google) + RLS + Realtime |
 | Drag & drop | @dnd-kit/core (mouse, touch e tastiera) |
 | Date | date-fns, locale `it`, settimana da lunedì |
 | Form | react-hook-form + zod |
@@ -53,7 +53,9 @@ Senza variabili d'ambiente l'app parte in **modalità locale**: niente login, i 
    npm run gen:types
    ```
 5. **Auth**:
-   - *Authentication → Providers → Email*: attivo (il magic link è il default).
+   - *Authentication → Sign In / Providers → Email*: attivo. Dà sia l'accesso con **email e password** sia il **link via email**; in *Minimum password length* metti 8, come chiede l'app.
+   - Chi è entrato con il link imposta la password da *Impostazioni → Password*, oppure dal login con *Password dimenticata?* (il link riporta all'app, che chiede la password nuova).
+   - Se l'app la usi solo tu, disattiva *Allow new users to sign up*: il login smette di mostrare "Crea un account".
    - *Authentication → Providers → Google*: crea un OAuth Client su Google Cloud Console (tipo "Web application") con redirect URI `https://<ref>.supabase.co/auth/v1/callback`, poi incolla Client ID e Secret in Supabase.
    - *Authentication → URL Configuration*: *Site URL* = l'URL di produzione; in *Redirect URLs* aggiungi `http://localhost:5173` e il dominio Vercel (anche i preview: `https://*-<team>.vercel.app`).
 6. **Realtime**: la migrazione aggiunge `companies`, `folders`, `tasks` e `task_links` alla publication `supabase_realtime`. Puoi verificarlo in *Database → Publications*.

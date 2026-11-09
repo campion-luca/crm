@@ -18,6 +18,7 @@ export type ModalState =
   | { kind: 'day'; date: string; source: 'all' | 'company' }
   | { kind: 'completeLinked'; taskId: string }
   | { kind: 'backup' }
+  | { kind: 'password'; recovery?: boolean }
   | { kind: 'brandColor'; companyId: string; colorId?: string }
   | { kind: 'brandFont'; companyId: string; fontId?: string }
   | { kind: 'brandGuide'; companyId: string }

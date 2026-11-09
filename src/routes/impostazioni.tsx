@@ -137,9 +137,14 @@ export function SettingsPage() {
           <ConfirmButton onConfirm={wipeAll}>Svuota</ConfirmButton>
         </Row>
         {auth.mode === 'supabase' && (
-          <Row title="Account" hint={auth.user?.email ?? undefined}>
-            <Button onClick={() => void signOut(auth.user?.id)}>Esci</Button>
-          </Row>
+          <>
+            <Row title="Password" hint="Per entrare con email e password, oltre che con il link via email">
+              <Button onClick={() => openModal({ kind: 'password' })}>Imposta password</Button>
+            </Row>
+            <Row title="Account" hint={auth.user?.email ?? undefined}>
+              <Button onClick={() => void signOut(auth.user?.id)}>Esci</Button>
+            </Row>
+          </>
         )}
       </Module>
     </div>

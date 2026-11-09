@@ -12,6 +12,7 @@ const load = {
   day: () => import('@/features/calendar/DayModal'),
   completeLinked: () => import('@/features/tasks/CompleteLinkedDialog'),
   backup: () => import('@/features/settings/BackupModal'),
+  password: () => import('@/features/settings/PasswordModal'),
   brand: () => import('@/features/brand/BrandModals'),
 }
 const TaskModal = lazy(() => load.task().then((m) => ({ default: m.TaskModal })))
@@ -23,6 +24,7 @@ const CompleteLinkedDialog = lazy(() =>
   load.completeLinked().then((m) => ({ default: m.CompleteLinkedDialog })),
 )
 const BackupModal = lazy(() => load.backup().then((m) => ({ default: m.BackupModal })))
+const PasswordModal = lazy(() => load.password().then((m) => ({ default: m.PasswordModal })))
 const BrandColorModal = lazy(() => load.brand().then((m) => ({ default: m.BrandColorModal })))
 const BrandFontModal = lazy(() => load.brand().then((m) => ({ default: m.BrandFontModal })))
 const BrandGuideModal = lazy(() => load.brand().then((m) => ({ default: m.BrandGuideModal })))
@@ -68,6 +70,8 @@ function CurrentModal() {
       return <CompleteLinkedDialog taskId={modal.taskId} />
     case 'backup':
       return <BackupModal />
+    case 'password':
+      return <PasswordModal recovery={modal.recovery} />
     case 'brandColor':
       return (
         <BrandColorModal key={modal.colorId ?? 'new'} companyId={modal.companyId} colorId={modal.colorId} />

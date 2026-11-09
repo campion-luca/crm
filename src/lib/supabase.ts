@@ -33,18 +33,26 @@ export function loadSupabase(): Promise<Client> {
 /** Client già caricato (dopo l'inizializzazione dell'auth), altrimenti null. */
 export const getSupabase = (): Client | null => client
 
+export interface AuthSettings {
+  /** provider attivi, es. `{ email: true, google: false }` */
+  providers: Record<string, boolean>
+  /** registrazione di nuovi utenti aperta */
+  signup: boolean
+}
+
 /**
- * Provider di accesso attivi nel progetto (Authentication → Sign In / Providers), es. `{ email: true, google: false }`.
- * Serve a non mostrare "Continua con Google" finché Google non è configurato.
+ * Impostazioni pubbliche di Supabase Auth (Authentication → Sign In / Providers): servono a mostrare
+ * "Continua con Google" solo se Google è attivo e "Crea un account" solo se le registrazioni sono aperte.
  */
-export async function authProviders(): Promise<Record<string, boolean>> {
-  if (!isSupabaseConfigured) return {}
+export async function authSettings(): Promise<AuthSettings> {
+  const none: AuthSettings = { providers: {}, signup: false }
+  if (!isSupabaseConfigured) return none
   try {
     const res = await fetch(`${url}/auth/v1/settings`, { headers: { apikey: anonKey! } })
-    if (!res.ok) return {}
-    const body = (await res.json()) as { external?: Record<string, boolean> }
-    return body.external ?? {}
+    if (!res.ok) return none
+    const body = (await res.json()) as { external?: Record<string, boolean>; disable_signup?: boolean }
+    return { providers: body.external ?? {}, signup: body.disable_signup === false }
   } catch {
-    return {}
+    return none
   }
 }

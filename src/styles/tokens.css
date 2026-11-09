@@ -1,0 +1,34 @@
+/* Design token del tema unico scuro: fondo nero, caselle grafite, dettagli rosa. */
+:root {
+  --bg: #0a0a0b;
+  --side: #050505;
+  --surface: #151517;
+  --surface-2: #1e1e21;
+  --line: #2a2a2e;
+  --ink: #f3f3f5;
+  --ink-2: #b4b4bc;
+  /* #77777f del prototipo alzato a #8a8a93: contrasto AA (≥ 4.5:1) anche su --surface-2 */
+  --ink-3: #8a8a93;
+  --accent: #ff6eb4;
+  --accent-ink: #3a0b22;
+  --accent-soft: rgba(255, 110, 180, 0.14);
+  --danger: #ff5d73;
+  --danger-ink: #ff8394;
+  --warn: #ffb547;
+  --ok: #3ddc97;
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.25), 0 8px 22px rgba(0, 0, 0, 0.22);
+  --shadow-module: 0 1px 2px rgba(0, 0, 0, 0.2), 0 10px 30px rgba(0, 0, 0, 0.22);
+  --font-body:
+    'Plus Jakarta Sans Variable', 'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-numbers: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  --sidebar-w: 288px;
+  /* altezza della barra di navigazione in basso (solo sotto i 900px): i toast stanno sopra */
+  --bottom-nav-h: 0px;
+  color-scheme: dark;
+}
+
+@media (max-width: 899.98px) {
+  :root {
+    --bottom-nav-h: 64px;
+  }
+}

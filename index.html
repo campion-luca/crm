@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#050505" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="description" content="Gestionale Lavoro: task per azienda e cartella, scadenze, calendario e storico dei completati." />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>Gestionale Lavoro</title>
+    <style>
+      /* skeleton statico: si vede subito, prima che parta il JavaScript (niente schermata bianca) */
+      html,body{margin:0;height:100%;background:#0a0a0b;color:#f3f3f5;font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
+      .boot{display:grid;grid-template-columns:264px 1fr;height:100dvh}
+      .boot-side{background:#050505;border-right:1px solid #2a2a2e;padding:18px;display:flex;flex-direction:column;gap:10px}
+      .boot-logo{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,#ff6eb4,#ff9a7a);color:#3a0b22;display:grid;place-items:center;font:700 13px system-ui}
+      .boot-top{height:64px;border-bottom:1px solid #2a2a2e;background:#151517}
+      .boot-main{padding:22px;display:grid;grid-template-columns:1.8fr 1fr;gap:20px;align-content:start}
+      .boot-b{background:#1e1e21;border-radius:8px;animation:boot 1.6s ease-in-out infinite}
+      @keyframes boot{50%{opacity:.55}}
+      @media (max-width:899.98px){.boot{grid-template-columns:1fr}.boot-side{display:none}.boot-main{grid-template-columns:1fr}}
+      @media (prefers-reduced-motion:reduce){.boot-b{animation:none}}
+    </style>
+  </head>
+  <body>
+    <div id="root">
+      <div class="boot" aria-busy="true" aria-label="Caricamento">
+        <div class="boot-side">
+          <div style="display:flex;gap:10px;align-items:center"><div class="boot-logo">GL</div><div class="boot-b" style="height:14px;width:130px"></div></div>
+          <div class="boot-b" style="height:28px;margin-top:18px"></div>
+          <div class="boot-b" style="height:28px"></div>
+          <div class="boot-b" style="height:28px"></div>
+          <div class="boot-b" style="height:28px"></div>
+        </div>
+        <div>
+          <div class="boot-top"></div>
+          <div class="boot-main">
+            <div class="boot-b" style="height:30px;width:220px;grid-column:1/-1"></div>
+            <div class="boot-b" style="height:560px;border-radius:20px"></div>
+            <div class="boot-b" style="height:420px;border-radius:20px"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

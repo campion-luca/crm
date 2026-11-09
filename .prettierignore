@@ -1,0 +1,8 @@
+dist
+node_modules
+src/lib/database.types.ts
+gestionale-lavoro.html
+PROMPT-gestionale-lavoro.md
+playwright-report
+test-results
+*.md
